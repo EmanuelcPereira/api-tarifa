@@ -19,6 +19,12 @@ export class UpdateTarifaService {
   }: IRequest): Promise<Tarifa> {
     const tarifasRepository = getCustomRepository(TarifaRepository);
 
+    if (origem === destino) {
+      throw new AppError(
+        'Não é possível criar uma rota para mesma origem e destino',
+      );
+    }
+
     const tarifa = await tarifasRepository.findOne(id);
 
     if (!tarifa) {

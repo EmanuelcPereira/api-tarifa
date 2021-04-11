@@ -13,6 +13,12 @@ export default class CreateTarifaService {
   public async execute({ origem, destino, custo }: IRequest): Promise<Tarifa> {
     const tarifasRepository = getCustomRepository(TarifaRepository);
 
+    if (origem === destino) {
+      throw new AppError(
+        'Não é possível criar uma rota para mesma origem e destino',
+      );
+    }
+
     const tarifaExists = await tarifasRepository.findByDDD(origem, destino);
 
     if (tarifaExists) {
