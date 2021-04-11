@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreateTarifaService from '../services/CreateTarifaService';
 import { DeleteTarifaService } from '../services/DeleteTarifaService';
+import { ListAllTarifaService } from '../services/ListAllTarifaService';
 import ShowTarifaService from '../services/ShowTarifaService';
 import { UpdateTarifaService } from '../services/UpdateTarifaService';
 
@@ -44,5 +45,16 @@ export default class TarifasController {
     const tarifa = await updateTarifa.execute({ id, origem, destino, custo });
 
     return response.json(tarifa);
+  }
+
+  public async listAll(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const listTarifas = new ListAllTarifaService();
+
+    const tarifas = await listTarifas.execute();
+
+    return response.json(tarifas);
   }
 }
