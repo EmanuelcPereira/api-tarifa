@@ -16,7 +16,7 @@ export default class CreateTarifaService {
     const tarifaExists = await tarifasRepository.findByDDD(origem, destino);
 
     if (tarifaExists) {
-      throw new AppError('There is a tarifa for this DDD');
+      throw new AppError('Já existe uma tarifa para essa rota DDD');
     }
 
     const tarifa = tarifasRepository.create({ origem, destino, custo });
