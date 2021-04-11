@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import CreateTarifaService from '../services/CreateTarifaService';
-import { DeleteTarifaService } from '../services/DeleteTarifaService';
-import { ListAllTarifaService } from '../services/ListAllTarifaService';
-import ShowTarifaService from '../services/ShowTarifaService';
-import { UpdateTarifaService } from '../services/UpdateTarifaService';
+import { container } from 'tsyringe';
+import CreateTarifaService from '../../../services/CreateTarifaService';
+import { DeleteTarifaService } from '../../../services/DeleteTarifaService';
+import { ListAllTarifaService } from '../../../services/ListAllTarifaService';
+import ShowTarifaService from '../../../services/ShowTarifaService';
+import { UpdateTarifaService } from '../../../services/UpdateTarifaService';
 
 export default class TarifasController {
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const showTarifa = new ShowTarifaService();
+    const showTarifa = container.resolve(ShowTarifaService);
 
     const tarifa = await showTarifa.execute({ id });
 
@@ -19,7 +20,7 @@ export default class TarifasController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { origem, destino, custo } = request.body;
 
-    const createTarifa = new CreateTarifaService();
+    const createTarifa = container.resolve(CreateTarifaService);
 
     const tarifa = await createTarifa.execute({ origem, destino, custo });
 
@@ -29,7 +30,7 @@ export default class TarifasController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const deleteTarifa = new DeleteTarifaService();
+    const deleteTarifa = container.resolve(DeleteTarifaService);
 
     await deleteTarifa.execute({ id });
 
@@ -40,7 +41,7 @@ export default class TarifasController {
     const { id } = request.params;
     const { origem, destino, custo } = request.body;
 
-    const updateTarifa = new UpdateTarifaService();
+    const updateTarifa = container.resolve(UpdateTarifaService);
 
     const tarifa = await updateTarifa.execute({ id, origem, destino, custo });
 
@@ -51,7 +52,7 @@ export default class TarifasController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const listTarifas = new ListAllTarifaService();
+    const listTarifas = container.resolve(ListAllTarifaService);
 
     const tarifas = await listTarifas.execute();
 

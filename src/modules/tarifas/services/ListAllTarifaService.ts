@@ -1,12 +1,15 @@
-import { getCustomRepository } from 'typeorm';
-import TarifaRepository from '../typeorm/entities/repositories/TarifaRepository';
-import Tarifa from '../typeorm/entities/Tarifa';
+import { inject, injectable } from 'tsyringe';
+import { ITarifasRepository } from '../domain/Repositories/ITarifasRepository';
+import Tarifa from '../infra/typeorm/entities/Tarifa';
 
+@injectable()
 export class ListAllTarifaService {
+  constructor(
+    @inject('TarifasRepository')
+    private tarifasRepository: ITarifasRepository,
+  ) {}
   public async execute(): Promise<Tarifa[]> {
-    const tarifasRepository = getCustomRepository(TarifaRepository);
-
-    const tarifas = await tarifasRepository.find();
+    const tarifas = await this.tarifasRepository.findAll();
 
     return tarifas;
   }

@@ -5,9 +5,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ITarifa } from '@modules/tarifas/domain/models/ITarifa';
 
 @Entity('tarifas')
-class Tarifa {
+class Tarifa implements ITarifa {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

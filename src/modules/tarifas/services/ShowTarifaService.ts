@@ -1,17 +1,21 @@
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import TarifaRepository from '../typeorm/entities/repositories/TarifaRepository';
-import Tarifa from '../typeorm/entities/Tarifa';
+import { inject, injectable } from 'tsyringe';
+import { ITarifasRepository } from '../domain/Repositories/ITarifasRepository';
+import Tarifa from '../infra/typeorm/entities/Tarifa';
 
 interface IRequest {
   id: string;
 }
 
+@injectable()
 export default class ShowTarifaService {
-  public async execute({ id }: IRequest): Promise<Tarifa | undefined> {
-    const tarifasRepository = getCustomRepository(TarifaRepository);
+  constructor(
+    @inject('TarifasRepository')
+    private tarifasRepository: ITarifasRepository,
+  ) {}
 
-    const tarifa = await tarifasRepository.findById(id);
+  public async execute({ id }: IRequest): Promise<Tarifa | undefined> {
+    const tarifa = await this.tarifasRepository.findById(id);
 
     if (!tarifa) {
       throw new AppError(

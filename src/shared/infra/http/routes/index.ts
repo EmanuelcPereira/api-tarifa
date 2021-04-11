@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import tarifasRouter from '@modules/tarifas/routes/tarifas.routes';
+import tarifasRouter from '@modules/tarifas/infra/http/routes/tarifas.routes';
 
 const routes = Router();
 
