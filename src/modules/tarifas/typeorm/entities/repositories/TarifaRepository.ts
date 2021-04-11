@@ -11,4 +11,10 @@ export default class TarifaRepository extends Repository<Tarifa> {
 
     return custoTarifa;
   }
+
+  public async findById(id: string): Promise<Tarifa | undefined> {
+    const tarifa = await this.findOne(id);
+
+    return tarifa;
+  }
 }

@@ -25,7 +25,7 @@ export class UpdateTarifaService {
       );
     }
 
-    const tarifa = await tarifasRepository.findOne(id);
+    const tarifa = await tarifasRepository.findById(id);
 
     if (!tarifa) {
       throw new AppError('tarifa não encontrada');

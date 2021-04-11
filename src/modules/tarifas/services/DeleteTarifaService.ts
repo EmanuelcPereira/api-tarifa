@@ -10,7 +10,7 @@ export class DeleteTarifaService {
   public async execute({ id }: IRequest): Promise<void> {
     const tarifasRepository = getCustomRepository(TarifaRepository);
 
-    const tarifa = await tarifasRepository.findOne(id);
+    const tarifa = await tarifasRepository.findById(id);
 
     if (!tarifa) {
       throw new AppError('Tarifa não cadastrada');

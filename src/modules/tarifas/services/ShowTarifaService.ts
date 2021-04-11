@@ -11,7 +11,7 @@ export default class ShowTarifaService {
   public async execute({ id }: IRequest): Promise<Tarifa | undefined> {
     const tarifasRepository = getCustomRepository(TarifaRepository);
 
-    const tarifa = await tarifasRepository.findOne(id);
+    const tarifa = await tarifasRepository.findById(id);
 
     if (!tarifa) {
       throw new AppError(
