@@ -14,7 +14,7 @@ export default class ShowTarifaService {
     private tarifasRepository: ITarifasRepository,
   ) {}
 
-  public async execute({ id }: IRequest): Promise<Tarifa | undefined> {
+  public async execute({ id }: IRequest): Promise<Tarifa> {
     const tarifa = await this.tarifasRepository.findById(id);
 
     if (!tarifa) {

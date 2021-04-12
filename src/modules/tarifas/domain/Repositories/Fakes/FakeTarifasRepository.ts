@@ -35,8 +35,8 @@ export default class FakeTarifaRepository implements ITarifasRepository {
     return tarifa;
   }
 
-  public async findAll(): Promise<Tarifa[] | undefined> {
-    return undefined;
+  public async findAll(): Promise<Tarifa[]> {
+    return this.tarifas;
   }
 
   public async remove(tarifa: Tarifa): Promise<void> {

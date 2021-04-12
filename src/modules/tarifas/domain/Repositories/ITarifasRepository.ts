@@ -3,7 +3,7 @@ import { ICreateTarifa } from '../models/ICreateTarifa';
 import { ITarifa } from '../models/ITarifa';
 
 export interface ITarifasRepository {
-  findAll(): Promise<ITarifa[] | undefined>;
+  findAll(): Promise<ITarifa[]>;
   findByDDD(origem: string, destino: string): Promise<Tarifa | undefined>;
   findById(id: string): Promise<ITarifa | undefined>;
   create(data: ICreateTarifa): Promise<ITarifa>;

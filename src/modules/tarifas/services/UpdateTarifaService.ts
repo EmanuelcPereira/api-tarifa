@@ -24,7 +24,7 @@ export class UpdateTarifaService {
   }: IRequest): Promise<Tarifa> {
     if (origem === destino) {
       throw new AppError(
-        'Não é possível criar uma rota para mesma origem e destino',
+        'Não é possível atualizar uma tarifa com origem e destino iguais',
       );
     }
 
