@@ -40,7 +40,7 @@ export default class FakeTarifaRepository implements ITarifasRepository {
   }
 
   public async remove(tarifa: Tarifa): Promise<void> {
-    //fazer um filter e retornar [] sem o id informado
+    this.tarifas.filter(task => task !== tarifa);
   }
 
   public async findByDDD(
