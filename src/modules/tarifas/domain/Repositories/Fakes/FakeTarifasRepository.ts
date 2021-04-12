@@ -6,36 +6,51 @@ import Tarifa from '@modules/tarifas/infra/typeorm/entities/Tarifa';
 export default class FakeTarifaRepository implements ITarifasRepository {
   private tarifas: Tarifa[] = [];
 
-  constructor() {
-    this.ormRepository = getRepository(Tarifa);
-  }
-
   public async create({
     origem,
     destino,
     custo,
-  }: ICreateTarifa): Promise<Tarifa> {}
+  }: ICreateTarifa): Promise<Tarifa> {
+    const tarifa = new Tarifa();
 
-  // public async save(tarifa: Tarifa): Promise<Tarifa> {
+    tarifa.id = uuidv4();
+    tarifa.origem = origem;
+    tarifa.destino = destino;
+    tarifa.custo = custo;
 
-  // }
+    this.tarifas.push(tarifa);
 
-  // public async findByDDD(
-  //   origem: string,
-  //   destino: string,
-  // ): Promise<Tarifa | undefined> {
+    return tarifa;
+  }
 
-  // }
+  public async save(tarifa: Tarifa): Promise<Tarifa> {
+    Object.assign(this.tarifas, tarifa);
 
-  // public async findById(id: string): Promise<Tarifa | undefined> {
+    return tarifa;
+  }
 
-  // }
+  public async findById(id: string): Promise<Tarifa | undefined> {
+    const tarifa = this.tarifas.find(tarifa => tarifa.id === id);
 
-  // public async findAll(): Promise<Tarifa[]> {
+    return tarifa;
+  }
 
-  // }
+  public async findAll(): Promise<Tarifa[] | undefined> {
+    return undefined;
+  }
 
-  // public async remove(tarifa: Tarifa): Promise<void> {
+  public async remove(tarifa: Tarifa): Promise<void> {
+    //fazer um filter e retornar [] sem o id informado
+  }
 
-  // }
+  public async findByDDD(
+    origem: string,
+    destino: string,
+  ): Promise<Tarifa | undefined> {
+    const custoTarifa = this.tarifas.find(
+      tarifa => tarifa.origem === origem && tarifa.destino === destino,
+    );
+
+    return custoTarifa;
+  }
 }
